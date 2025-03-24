@@ -82,3 +82,37 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'You have been logged out')
     return redirect('userauths:sign-in')
+
+
+
+@login_required
+def kyc_registration(request):
+    user = request.user
+    account = Account.objects.get(user=user)
+
+    try:
+        kyc = KYC.objects.get(user=user)
+    except KYC.DoesNotExist:
+        kyc = None
+    
+    if request.method == "POST":
+        form = UserKYCForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            updated_user = form.save(commit=False)
+            updated_user.save()
+            
+            kyc, created = KYC.objects.get_or_create(user=user)
+            kyc.image = form.cleaned_data.get('image', kyc.image)
+            kyc.save()
+
+            messages.success(request, "The data has been updated successfully.")
+            return redirect("core:home")
+    else:
+        form = UserKYCForm(instance=user)
+    
+    context = {
+        "account": account,
+        "form": form,
+        "kyc": kyc,
+    }
+    return render(request, "userauths/kyc-form.html", context)
