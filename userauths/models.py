@@ -19,7 +19,7 @@ def user_directory_path(instance, filename):
 
 
 class User(AbstractUser):
-    frist_name = models.CharField(_('Frist Name'), max_length=255)
+    first_name = models.CharField(_('First Name'), max_length=255)
     last_name = models.CharField(_('Last Name'), max_length=255)
     username = models.CharField(_('Username'), max_length=255)
     email = models.EmailField(_('Email'), unique=True)
@@ -45,16 +45,16 @@ ACCOUNT_STATUS = (
 )
 
 class Account(models.Model):
-    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(_('ID'), primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     user =  models.OneToOneField(User, on_delete=models.CASCADE)
-    account_number = ShortUUIDField(unique=True,length=10, max_length=25, prefix="217", alphabet="1234567890")
-    account_id = ShortUUIDField(unique=True,length=7, max_length=25, prefix="DEX", alphabet="1234567890")
-    pin_number = ShortUUIDField(unique=True,length=4, max_length=7, alphabet="1234567890") #2737
-    red_code = ShortUUIDField(unique=True,length=10, max_length=20, alphabet="abcdefgh1234567890")
-    account_status = models.CharField(max_length=100, choices=ACCOUNT_STATUS, default="in-active")
-    date = models.DateTimeField(auto_now_add=True)
-    kyc_submitted = models.BooleanField(default=False)
-    kyc_confirmed = models.BooleanField(default=False)
+    account_number = ShortUUIDField(_('Account Number'), unique=True,length=10, max_length=25, prefix="217", alphabet="1234567890")
+    account_id = ShortUUIDField(_('Account ID'), unique=True,length=7, max_length=25, prefix="DEX", alphabet="1234567890")
+    pin_number = ShortUUIDField(_('Pin Number'), unique=True,length=4, max_length=7, alphabet="1234567890") #2737
+    red_code = ShortUUIDField(_('Red Code'), unique=True,length=10, max_length=20, alphabet="abcdefgh1234567890")
+    account_status = models.CharField(_('Account Status'), max_length=100, choices=ACCOUNT_STATUS, default="in-active")
+    date = models.DateTimeField(_('Date'), auto_now_add=True)
+    kyc_submitted = models.BooleanField(_('KYC submitted'), default=False)
+    kyc_confirmed = models.BooleanField(_('KYC Confirmed'), default=False)
     recommended_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True, related_name="recommended_by")
     review = models.CharField(max_length=100, null=True, blank=True, default="Review")
 
@@ -80,11 +80,11 @@ post_save.connect(save_account, sender=User)
 
 
 class KYC(models.Model):
-    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(_('ID'), primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     user =  models.OneToOneField(User, on_delete=models.CASCADE)
     account =  models.OneToOneField(Account, on_delete=models.CASCADE, null=True, blank=True)
-    image = models.ImageField(upload_to="kyc", default="default.jpg")
-    date = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(_('Profile Image'), upload_to="kyc", default="default.jpg")
+    date = models.DateTimeField(_('Date'), auto_now_add=True)
 
 
     def __str__(self):
