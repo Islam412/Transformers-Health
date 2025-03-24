@@ -39,6 +39,9 @@ LOGOUT_REDIRECT_URL = "userauths:sign-in"
 # Application definition
 
 INSTALLED_APPS = [
+    # Custom Django Admin
+    'jazzmin',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
