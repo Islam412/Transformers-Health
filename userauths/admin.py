@@ -1,3 +1,20 @@
 from django.contrib import admin
 
+from import_export.admin import ImportExportModelAdmin
+
+from userauths.models import User , Account , KYC
+
 # Register your models here.
+
+
+class UserCustomAdmin(admin.ModelAdmin):
+    list_display = ['first_name','last_name','username', 'email', 'phone']
+    search_fields = ['first_name','last_name','username', 'email','phone']
+    list_filter = ['email']
+    ordering = ['email']
+    fieldsets = (
+        (None, {'fields': ('first_name','last_name','username', 'email','phone','company','date_of_birth', 'password')}),
+        ('Permissions', {'fields': ('is_staff', 'is_superuser', 'user_permissions')}),
+        ('Important dates', {'fields': ('last_login', 'date_joined')}),
+    )
+    filter_horizontal = ('user_permissions',)
