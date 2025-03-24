@@ -18,3 +18,11 @@ class UserCustomAdmin(admin.ModelAdmin):
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
     filter_horizontal = ('user_permissions',)
+
+
+
+class AccountAdminModel(ImportExportModelAdmin):
+    list_editable = ['account_status', 'kyc_submitted', 'kyc_confirmed'] 
+    list_display = ['user', 'account_number','user__phone' ,'account_status', 'kyc_submitted', 'kyc_confirmed'] 
+    list_filter = ['account_status']
+    search_fields = ['user__username', 'user__email', 'account_number']
