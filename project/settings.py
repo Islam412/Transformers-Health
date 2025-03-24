@@ -28,6 +28,14 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
+# change user Configs
+AUTH_USER_MODEL = 'userauths.User'
+LOGIN_URL = "userauths:sign-in"
+LOGOUT_REDIRECT_URL = "userauths:sign-in"
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
