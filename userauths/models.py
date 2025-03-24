@@ -35,3 +35,32 @@ class User(AbstractUser):
 
     def __str__(self):
         return str(self.username)
+
+
+
+ACCOUNT_STATUS = (
+    ("active", "Active"),
+    ("pending", "Pending"),
+    ("in-active", "In-active")
+)
+
+class Account(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    user =  models.OneToOneField(User, on_delete=models.CASCADE)
+    account_number = ShortUUIDField(unique=True,length=10, max_length=25, prefix="217", alphabet="1234567890")
+    account_id = ShortUUIDField(unique=True,length=7, max_length=25, prefix="DEX", alphabet="1234567890")
+    pin_number = ShortUUIDField(unique=True,length=4, max_length=7, alphabet="1234567890") #2737
+    red_code = ShortUUIDField(unique=True,length=10, max_length=20, alphabet="abcdefgh1234567890")
+    account_status = models.CharField(max_length=100, choices=ACCOUNT_STATUS, default="in-active")
+    date = models.DateTimeField(auto_now_add=True)
+    kyc_submitted = models.BooleanField(default=False)
+    kyc_confirmed = models.BooleanField(default=False)
+    recommended_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True, related_name="recommended_by")
+    review = models.CharField(max_length=100, null=True, blank=True, default="Review")
+
+    
+    class Meta:
+        ordering = ['-date']
+
+    def __str__(self):
+        return f"{self.user}"
