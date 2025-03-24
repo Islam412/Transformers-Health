@@ -34,3 +34,6 @@ class KYCAdmin(ImportExportModelAdmin):
     list_display = ['user', 'user__first_name' , 'user__last_name' , 'date'] 
 
 
+admin.site.register(User, UserCustomAdmin)
+admin.site.register(Account, AccountAdminModel)
+admin.site.register(KYC, KYCAdmin)
