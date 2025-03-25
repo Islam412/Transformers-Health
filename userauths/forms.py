@@ -68,3 +68,13 @@ class UserKYCForm(UserChangeForm):
             kyc.image = self.cleaned_data.get('image')
             kyc.save()
         return user
+
+
+
+
+class UserPasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(UserPasswordChangeForm, self).__init__(*args, **kwargs)
+        self.fields['old_password'].widget.attrs['placeholder'] = 'Old Password'
+        self.fields['new_password1'].widget.attrs['placeholder'] = 'New Password'
+        self.fields['new_password2'].widget.attrs['placeholder'] = 'Confirm New Password'
