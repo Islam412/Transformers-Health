@@ -1,0 +1,126 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transformers Health</title>
+    
+    <link rel="shortcut icon" href="{% static 'assets/images/logo.jpg' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugin/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugin/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugin/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/arafat-font.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugin/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+
+<body>
+
+    <a href="javascript:void(0)" class="scrollToTop"><i class="fas fa-angle-double-up"></i></a>
+
+    <header class="header-section">
+        <div class="overlay">
+            <div class="container">
+                <div class="row d-flex header-area">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        {% comment %} <a class="navbar-brand" href="index.html">
+                            <img src="{% static 'assets/images/atoms.gif' %}" alt="logo" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; display: inline-block; vertical-align: middle;">
+                        </a>
+                        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbar-content">
+                            <i class="fas fa-bars"></i>
+                        </button> {% endcomment %}
+                        {% comment %} <div class="collapse navbar-collapse justify-content-end" id="navbar-content">
+                            {% if request.user.is_authenticated %}
+                                <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                                    <li class="nav-item dropdown main-navbar">
+                                        <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                            data-bs-toggle="dropdown" data-bs-auto-close="outside">{% translate "Welcome" %}</a>
+                                    </li>
+                                    <li class="nav-item dropdown main-navbar">
+                                        <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                            data-bs-toggle="dropdown" data-bs-auto-close="outside">{% translate "New Prediction" %}</a>
+                                    </li>
+                                    <li class="nav-item dropdown main-navbar">
+                                        <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                            data-bs-toggle="dropdown" data-bs-auto-close="outside">{% translate "Prediction History" %}</a>
+                                    </li>
+                                    <li class="nav-item dropdown main-navbar">
+                                        <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                            data-bs-toggle="dropdown" data-bs-auto-close="outside">{% translate "Profile" %}</a>
+                                        
+                                    </li>
+                                    <li class="nav-item dropdown main-navbar">
+                                        <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                            data-bs-toggle="dropdown" data-bs-auto-close="outside">{% translate "Support" %}</a>
+                                        
+                                    </li>
+                                </ul>
+                                <div class="right-area header-action d-flex align-items-center max-un">
+                                    {% if request.user.is_staff and request.user.is_superuser %}
+                                        <a href="/admin" class="login cmdn-btn">Admin</a>
+                                    {% endif %}
+                                    <a href="{% url 'userauths:sign-out' %}" class="login cmn-btn">Sign Out</a>
+                                    {% elif request.path == '/user/sign-up/' %}
+                                    <a href="{% url 'userauths:sign-in' %}" class="cmn-btn">Login <i class="fas fa-caret-right"></i></a>
+                            {% else %}
+                                    <a href="{% url 'userauths:sign-up' %}" class="cmn-btn">Sign Up
+                                        <i class="fas fa-caret-right"></i>
+                                    </a>
+                                    
+                                </div>
+                            {% endif %}
+                        </div> {% endcomment %}
+                    </nav>
+                </div>
+                <!-- alert start allmar box allmar all message -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{message.tags}}">
+                            <strong>{{ message }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <script>
+                    setTimeout (() => {
+                        $(".alert").alert("close");
+                    }, 4000)
+                </script>
+                <!-- alert end -->
+            </div>
+        </div>
+    </header>
+    <!-- header-section end -->
+
+{% block content %}
+  
+{% endblock content %}
+
+
+    
+    <!--==================================================================-->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-ui.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/fontawesome.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/slick.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/counter.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/waypoint.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/plugin.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+</body>
+
+</html>

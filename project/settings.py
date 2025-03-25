@@ -161,8 +161,8 @@ LANGUAGES = [
 # JAZZMIN settings
 JAZZMIN_SETTINGS = {
     'site_header': "Transformers Health",
-    'site_brand': "ReaTransformers Healthcto",
-    'site_logo': "assets/images/atoms.gif",
+    'site_brand': "Transformers Healthcto",
+    'site_logo': "assets/images/logo.jpg",
     'copyright':  "All Right Reserved 2025",
     "welcome_sign": "Welcome to Transformers Health System Admin, Login Now.",
     "topmenu_links": [

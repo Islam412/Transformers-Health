@@ -1,0 +1,196 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block content %}
+    <style>
+        body {
+            background-color: #121212;
+            color: #fff;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .single-input label {
+            color: #fff;
+        }
+
+        .single-input input {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background-color: #1e1e1e;
+            color: #fff;
+        }
+
+        .single-input input::placeholder {
+            color: #bbb;
+        }
+
+        .single-input input:focus {
+            border-color: #bb86fc;
+            box-shadow: 0 0 10px rgba(187, 134, 252, 0.5);
+        }
+
+        .animated-img {
+            width: 650px;
+            height: 650px;
+            border-radius: 50%;
+            object-fit: cover;
+            animation: bounce 3s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        .login-box {
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .cmn-btn {
+            background: linear-gradient(135deg, #bb86fc, #6200ea);
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cmn-btn:hover {
+            background: linear-gradient(135deg, #6200ea, #bb86fc);
+            box-shadow: 0px 0px 10px rgba(187, 134, 252, 0.5);
+        }
+
+        .forgot-password {
+            color: #bb86fc;
+            font-weight: bold;
+        }
+
+        .title, .dont-acc, .dont-acc a {
+            color: #fff;
+        }
+    </style>
+
+    <!-- Login Reg start -->
+    <section class="login-reg">
+        <div class="overlay pt-120">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                   
+                    <div class="col-xl-5">
+                        <div class="section-text text-center">
+                            <h2 class="title">{% translate "Welcome to Transformers Health" %}</h2>
+                            <p class="dont-acc">{% translate "Already have an account?" %} <a href="{% url 'userauths:sign-in' %}">{% translate "Login" %}</a></p>
+                        </div>
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            <div class="alert-danger alert">
+                                <!-- More robust error viewer -->
+
+                                {% if form.errors %}
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <p> {{ error }} </p>
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="single-input">
+                                        <label for="">{% translate "First Name" %}*</label>
+                                        {{form.first_name}}
+                                    </div>
+
+                                    <div class="single-input">
+                                        <label for="">{% translate "Last Name" %}*</label>
+                                        {{form.last_name}}
+                                    </div>
+
+                                    <div class="single-input">
+                                        <label for="">{% translate "Username" %}*</label>
+                                        {{form.username}}
+                                    </div>
+                                    
+                                    <div class="single-input">
+                                        <label for="">{% translate "Email" %}*</label>
+                                        {{form.email}}
+                                    </div>
+                                    
+                                    <div class="single-input">
+                                        <label for="">{% translate "Phone" %}</label>
+                                        {{form.phone}}
+                                    </div>
+
+                                    <div class="single-input">
+                                        <label for="">{% translate "Company" %}</label>
+                                        {{form.company}}
+                                    </div>
+
+                                    <div class="single-input">
+                                        <label for="">{% translate "Date of Birts" %}</label>
+                                        {{form.date_of_birth}}
+                                    </div>
+
+                                    <div class="single-input">
+                                        <label for="">{% translate "Password" %}*</label>
+                                        {{form.password1}}
+                                    </div>
+                                    
+                                    <div class="single-input">
+                                        <label for="">{% translate "Confirm Password" %}*</label>
+                                        {{form.password2}}
+                                    </div>
+                                    
+                                    <button class="cmn-btn w-100" type="submit">{% translate "Sign Up" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Login Reg end -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let form = document.querySelector(".login-form");
+            form.style.opacity = 0;
+            form.style.transform = "translateY(20px)";
+            setTimeout(() => {
+                form.style.transition = "all 0.8s ease-out";
+                form.style.opacity = 1;
+                form.style.transform = "translateY(0)";
+            }, 500);
+        });
+    </script>
+{% endblock content %}
+
+
+
