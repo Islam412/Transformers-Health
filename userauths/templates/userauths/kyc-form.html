@@ -1,0 +1,205 @@
+{% extends "auth_base.html" %}
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block content %}
+    <head>
+        <style>
+            #id_image{
+                background-color: #432f9f;
+                /* border: 1px solid #e2e9f3; */
+                border-radius: 4px;
+                height: 50px;
+                width: 100%;
+                color: #ffffff;
+            }
+            #id_image::file-selector-button{
+                border: none;
+                border-radius: 7px;
+                color: 432f9f;
+                background-color: #ffffff;
+                /* border: 1px solid #595ef1bd; */
+                height: 30px;
+                cursor: pointer;
+                transition: all .25s ease-in;
+            }
+            #id_image::file-selector-button:hover,
+            #id_identity_type::file-selector-button:hover{
+                background-color: #fff;
+                color: #565A90;
+                transition: all .25s ease-in;
+            }
+            
+            #id_identity_image{
+                background-color: #432f9f;
+                /* border: 1px solid #e2e9f3; */
+                border-radius: 4px;
+                height: 50px;
+                width: 100%;
+                color: #ffffff;
+            }
+            #id_identity_image::file-selector-button{
+                border: none;
+                border-radius: 7px;
+                color: 432f9f;
+                background-color: #ffffff;
+                /* border: 1px solid #595ef1bd; */
+                height: 30px;
+                cursor: pointer;
+                transition: all .25s ease-in;
+            }
+            #id_identity_image::file-selector-button:hover{
+                background-color: #fff;
+                color: #565A90;
+                transition: all .25s ease-in;
+            }
+        </style>
+    </head>
+    
+    <!-- Dashboard Section start -->
+    <section class="dashboard-section body-collapse account">
+        <div class="overlay pt-120">
+            <div class="container-fruid">
+                <div class="main-content">
+                    <div class="row">
+                        <div class="col-xxl-3 col-xl-4 col-md-6">
+                            <div class="owner-details">
+                                <div class="profile-area">
+                                    <div class="profile-img">
+                                        {% if kyc.image %}
+                                            <img src="{{user.kyc.image.url}}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" alt="image">
+                                        {% else %}
+                                            <img src="{% static 'assets1/images/default.jpg' %}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" alt="image">
+                                        {% endif %}
+                                    </div>
+                                    <div class="name-area">
+                                        <h6>{{request.user.username|title}}</h6>
+                                        <p class="text-danger">{{ request.user.account.account_status|title }}</p>
+                                    </div>
+                                </div>
+                                <div class="owner-info">
+                                    <ul>
+                                        <li>
+                                            <p>{% translate "Account ID" %}:</p>
+                                            <span class="mdr">{{ request.user.account.account_id }}</span>
+                                        </li>
+                                        <li>
+                                            <p>{% translate "Joined" %}:</p>
+                                            <span class="mdr">{{request.user.account.date|date:"d M, Y"}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="owner-action">
+                                    <a href="{% url 'userauths:sign-out' %}">
+                                        <img src="{% static 'assets1/images/icon/logout.png' %}" alt="image">
+                                        {% translate "Logout" %}
+                                    </a>
+                                    <a href="{% url 'userauths:delete-account' %}" class="delete">
+                                        <img src="{% static 'assets1/images/icon/delete-2.png' %}" alt="image">
+                                        {% translate "Delete Account" %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-9 col-xl-8">
+                            <div class="tab-main">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active text-center" id="account-tab" data-bs-toggle="tab"
+                                            data-bs-target="#account" type="button" role="tab" aria-controls="account"
+                                            aria-selected="true">{% translate "Update Profile" %}</button>
+                                    </li>
+                                    
+                                </ul>
+                                <div class="tab-content mt-40">
+                                    <div class="tab-pane fade show active" id="account" role="tabpanel"
+                                        aria-labelledby="account-tab">
+                                        <form method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="upload-avatar">
+                                                <div class="avatar-left d-flex align-items-center">
+                                                    <div class="profile-img">
+                                                        {% if kyc.image %}
+                                                            <img src="{{user.kyc.image.url}}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" alt="image">
+                                                        {% else %}
+                                                            <img src="{% static 'assets1/images/default.jpg' %}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" alt="image">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="instraction">
+                                                        <h6>{% translate "Your Avatar" %}</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="avatar-right">
+                                                    {{form.image}}
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-6">
+                                                    <div class="single-input">
+                                                        <label for="fName">{% translate "First Name" %}</label>
+                                                        {{ form.first_name }}
+                                                    </div>
+                                                </div>
+                                                
+
+                                                <div class="col-md-6">
+                                                    <div class="single-input">
+                                                        <label for="fName">{% translate "Last Name" %}</label>
+                                                        {{form.last_name}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="single-input">
+                                                        <label for="fName">{% translate "Username" %}</label>
+                                                        {{form.username}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="single-input">
+                                                        <label for="fName">{% translate "Email" %}</label>
+                                                        {{form.email}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="single-input">
+                                                        <label for="fName">{% translate "Mobile Number" %}</label>
+                                                        {{form.phone}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="single-input">
+                                                        <label for="fName">{% translate "Company" %}</label>
+                                                        {{form.company}}
+                                                    </div>
+                                                </div>
+                                            
+                                                <div class="col-md-12">
+                                                    <div class="single-input">
+                                                        <label for="fName">{% translate "Date Of Birth" %}</label>
+                                                        {{form.date_of_birth}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="btn-border">
+                                                        <button style="margin-top: 30px;" class="cmn-btn" type="submit">{% translate "Update Profile" %}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Dashboard Section end -->
+
+{% endblock content %}
