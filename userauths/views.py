@@ -156,3 +156,21 @@ def delete_account(request):
         return redirect("userauths:sign-in")
 
     return render(request, "userauths/delete_account.html")
+
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = UserPasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password has been updated successfully!')
+            return redirect('userauths:account')
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = UserPasswordChangeForm(request.user)
+
+    return render(request, 'userauths/change_password.html', {'form': form})
