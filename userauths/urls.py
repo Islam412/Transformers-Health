@@ -14,5 +14,5 @@ urlpatterns = [
     path('profile-edit/', views.kyc_registration, name='kyc-registration'),
     path('account/', views.account, name='account'),
     path('delete-account/', views.delete_account, name='delete-account'),
-
+    path('change-password/', views.change_password, name='change-password'),
 ]
