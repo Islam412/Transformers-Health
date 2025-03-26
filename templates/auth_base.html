@@ -1,4 +1,7 @@
 {% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
 <!doctype html>
 <html lang="en">
 
@@ -20,6 +23,11 @@
     <link rel="stylesheet" href="{% static 'assets1/css/style.css' %}">
 </head>
 <style>
+    body {
+        background-color: #121212;
+        color: #fff;
+    }
+
     .head-area {
         display: flex;
         align-items: center;
@@ -68,6 +76,11 @@
         margin-top: 5px;
     }
     
+    input::placeholder {
+        color: #fff;
+        opacity: 0.6;
+    }
+    
 </style>
 <body>
     <!-- start preloader -->
@@ -79,7 +92,7 @@
     <!-- Scroll To Top End -->
 
     <!-- header-section start -->
-    <header class="header-section body-collapse">
+    <header class="header-section body-collapse" style='background-color: #121212; color: #fff;'>
         <div class="overlay">
             <div class="container-fruid">
                 <div class="row d-flex header-area">
@@ -88,19 +101,19 @@
                             <img src="{% static 'assets1/images/icon/menu.png' %}" alt="icon">
                         </div>
                         <form action="#" class="flex-fill">
-                            <div class="form-group d-flex align-items-center">
+                            <div class="form-group d-flex align-items-center" style='background-color: #121212; color: #fff;'>
                                 <img src="{% static 'assets1/images/icon/search.png' %}" alt="icon">
-                                <input type="text" placeholder="Type to search...">
+                                <input type="text" placeholder="Type to search..." style='color: #fff'>
                             </div>
                         </form>
                         <div class="dashboard-nav">
                             <div class="single-item language-area">
                                 <div class="language-btn">
-                                    <img src="{% static 'assets1/images/icon/lang.png' %}" alt="icon">
+                                    <i class="fa-solid fa-language"></i><img src="{% static 'assets1/images/icon/lang.png' %}"  style='color: #fff; opacity: 0.6;' alt="icon">
                                 </div>
                                 <ul class="main-area language-content">
                                     <li>English</li>
-                                    <li>A</li>
+                                    <li>A</li>    earth-america
                                     <li class="active">English (US)</li>
                                     <li>Japanese</li>
                                     <li>Kannada</li>
@@ -214,74 +227,54 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sidebar-wrapper">
+                    <div class="sidebar-wrapper" style='background-color: #121212; color: #fff;'>>
                         <div class="close-btn">
                             <i class="fa-solid fa-xmark"></i>
                         </div>
                         <div class="sidebar-logo">
-                            <a href="dashboard.html"><img src="{% static 'assets1/images/logo.png' %}" alt="logo"></a>
+                            <a href="dashboard.html"><img src="{% static 'assets/images/logo.jpg' %}" alt="logo"></a>
                         </div>
-                        <ul>
+                        <ul style='color: #fff'>
+                            <li>
+                                <a href="dashboard.html" fff>
+                                    <img src="{% static 'assets1/images/icon/dashboard.png' %}" alt="Dashboard"> <span>{% translate "Welcome" %}</span>
+                                </a>
+                            </li>
                             <li>
                                 <a href="dashboard.html">
-                                    <img src="{% static 'assets1/images/icon/dashboard.png' %}" alt="Dashboard"> <span>Dashboard</span>
+                                    <img src="{% static 'assets1/images/icon/dashboard.png' %}" alt="Dashboard"> <span>{% translate "Dashboard" %}</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="transactions.html">
-                                    <img src="{% static 'assets1/images/icon/transactions.png' %}" alt="Transactions"> <span>Transactions</span>
+                                    <i class="fa-solid fa-plus"></i><img src="{% static '' %}" alt=""> <span>{% translate "New Prediction" %}</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="pay.html">
-                                    <img src="{% static 'assets1/images/icon/pay.png' %}" alt="Pay"> <span>Pay</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="receive-step-1.html">
-                                    <img src="{% static 'assets1/images/icon/receive.png' %}" alt="Receive"> <span>Receive</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="money-exchange.html">
-                                    <img src="{% static 'assets1/images/icon/exchange.png' %}" alt="Exchange"> <span>Exchange</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="recipients.html">
-                                    <img src="{% static 'assets1/images/icon/recipients.png' %}" alt="Recipients"> <span>Recipients</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="crypto.html">
-                                    <img src="{% static 'assets1/images/icon/crypto.png' %}" alt="Crypto"> <span>Crypto</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="deposit-money.html">
-                                    <img src="{% static 'assets1/images/icon/deposit.png' %}" alt="Deposit"> <span>Deposit Money</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="withdraw-money-step-1.html">
-                                    <img src="{% static 'assets1/images/icon/withdraw.png' %}" alt="Withdraw"> <span>Withdraw Money</span>
+                                    <img src="{% static 'assets1/images/icon/transactions.png' %}" alt="Pay"> <span>{% translate "Prediction History" %}</span>
                                 </a>
                             </li>
                         </ul>
                         <ul class="bottom-item">
-                            <li class="">
+                            <li>
                                 <a href="{% url 'userauths:account' %}">
-                                    <img src="{% static 'assets1/images/icon/account.png' %}" alt="Account"> <span>Account</span>
+                                    <img src="{% static 'assets1/images/icon/account.png' %}" alt="Profile"> <span>{% translate "Profile" %}</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">
-                                    <img src="{% static 'assets1/images/icon/support.png' %}" alt="Support"> <span>Support</span>
+                                <a href="{% url 'userauths:kyc-registration' %}">
+                                    <img src="{% static 'assets1/images/icon/recipients.png' %}" alt="Edit Profile"> <span>{% translate "Edit Profile" %}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="receive-step-1.html">
+                                    <img src="{% static 'assets1/images/icon/support.png' %}" alt="Support"> <span>{% translate "Support" %}</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{% url 'userauths:sign-out' %}">
-                                    <img src="{% static 'assets1/images/icon/quit.png' %}" alt="Quit"> <span>Quit</span>
+                                    <img src="{% static 'assets1/images/icon/quit.png' %}" alt="Quit"> <span>{% translate "Quit" %}</span>
                                 </a>
                             </li>
                         </ul>
